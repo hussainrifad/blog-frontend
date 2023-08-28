@@ -5,9 +5,9 @@ import Footer from '../shared/Footer';
 
 const Main = () => {
     return (
-        <div>
+        <div data-theme="light">
             <Header />
-            <Outlet/>
+            <div className='container mx-auto'><Outlet /></div>
             <Footer />
         </div>
     );
