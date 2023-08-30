@@ -39,16 +39,13 @@ const Header = () => {
                     Home
                 </Link>
                 <Link href="#" className="hover:text-green-800 block mt-4 md:inline-block md:mt-0 md:ml-6">
-                    Products
-                </Link>
-                <Link href="#" className="hover:text-green-800 block mt-4 md:inline-block md:mt-0 md:ml-6">
                     How It Works
                 </Link>
-                <Link href="#" className="hover:text-green-800 block mt-4 md:inline-block md:mt-0 md:ml-6">
-                    Blog
+                <Link to='/blogs' className="hover:text-green-800 block mt-4 md:inline-block md:mt-0 md:ml-6">
+                    Blogs
                 </Link>
                 {
-                    user && <Link className="hover:text-green-800 block mt-4 md:inline-block md:mt-0 md:ml-6">
+                    !user && <Link to='/profile' className="hover:text-green-800 block mt-4 md:inline-block md:mt-0 md:ml-6">
                         Profile
                     </Link>
                 }

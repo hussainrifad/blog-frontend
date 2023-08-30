@@ -3,7 +3,7 @@ import { AuthContext } from '../contexts/UserContext';
 import { BsGithub } from 'react-icons/bs';
 import { FcGoogle } from 'react-icons/fc';
 
-const SignIn = () => {
+const Login = () => {
     const { user, setUser, setError, googleSignIn, githubSignIn, signInwithEmailPassword, } = useContext(AuthContext)
     const [signInInfo, setSignInInfo] = useState({});
 
@@ -98,4 +98,4 @@ const SignIn = () => {
     );
 };
 
-export default SignIn;
+export default Login;
