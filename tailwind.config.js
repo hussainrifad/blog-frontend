@@ -11,6 +11,7 @@ export default {
   daisyui:{
     theme: [
       "light",
+      "dark"
     ]
   }
 }

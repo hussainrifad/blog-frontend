@@ -2,18 +2,24 @@ import React, { useContext, useState } from 'react';
 import { AuthContext } from '../contexts/UserContext';
 import { BsGithub } from 'react-icons/bs';
 import { FcGoogle } from 'react-icons/fc';
+import { Link, useNavigate } from 'react-router-dom';
+import useToken from './hooks/useToken';
 
 const Login = () => {
-    const { user, setUser, setError, googleSignIn, githubSignIn, signInwithEmailPassword, } = useContext(AuthContext)
+    const { user, setUser, setError, googleSignIn, githubSignIn, LogInWithEmailAndPassword, } = useContext(AuthContext)
     const [signInInfo, setSignInInfo] = useState({});
+    const [userEmail, setUserEmail] = useState('');
+    const [token] = useToken(userEmail);
+    const navigate = useNavigate()
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        signInwithEmailPassword(signInInfo.email, signInInfo.password)
+        LogInWithEmailAndPassword(signInInfo.email, signInInfo.password)
         .then(result => {
-            const currentUser = result.user;
-            setUser(currentUser);
+            const user = result.user;
+            setUserEmail(signInInfo.email);
+            if(token) navigate('/')
         })
         .then(error => {
             setError(error);
@@ -21,6 +27,8 @@ const Login = () => {
         })
 
     }
+
+    console.log(user);
 
     const handleBlur = (e) => {
         const form = e.target;
@@ -82,14 +90,15 @@ const Login = () => {
                         <div className="form-control mt-6">
                             <button className="btn btn-primary">Login</button>
                         </div>
+                        <Link to='/signup' className="label-text-alt">Don't have an account? <span className='link link-hover text-blue-900 font-semibold'>Sign Up</span> now</Link>
                     </form>
-                    <span className='h-1 bg-cyan-700'><hr /></span>
+                    <span className='border'><hr /></span>
                     <div className="card-body mt-[-40px]">
                         <div className="form-control mt-6">
                             <button onClick={handleGithub} className="h-12 rounded-lg btn-primary flex text-white items-center"> <span className='text-2xl w-1/6 ml-5'><BsGithub /></span><span className='w-5/6'>SignIn with Github</span></button>
                         </div>
                         <div className="form-control mt-2">
-                            <button onClick={handleGoogle} className="h-12 rounded-lg hover:bg-gray-200 font-semibold border-2 border-black flex text-orange-700 items-center"> <span className='text-2xl w-1/6 ml-5'><FcGoogle /></span><span className='w-5/6'>SignIn with Google</span></button>
+                            <button onClick={handleGoogle} className="h-12 rounded-lg hover:bg-gray-200 font-semibold border-2 flex text-orange-700 items-center"> <span className='text-2xl w-1/6 ml-5'><FcGoogle /></span><span className='w-5/6'>SignIn with Google</span></button>
                         </div>
                     </div>
                 </div>

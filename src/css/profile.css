@@ -1,0 +1,17 @@
+.customButton{
+    /* font-size: 3vh; */
+    font-weight: bold;
+    padding: 10px;
+    font-size: 1em;
+}
+
+.customButton:focus{
+    border-left: 1rem;
+    border-right: 1rem;
+    border-top: 1rem;
+    
+    border-color: rgb(59, 59, 147);
+    border-width: 3px;
+    background-color: rgb(218, 247, 221);
+    
+}

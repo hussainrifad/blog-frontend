@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { app } from '../fireBase/firebase.config';
-import {getAuth, GithubAuthProvider, GoogleAuthProvider, createUserWithEmailAndPassword, onAuthStateChanged, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
+import { getAuth, GithubAuthProvider, GoogleAuthProvider, createUserWithEmailAndPassword, onAuthStateChanged, signInWithPopup, signOut, updateProfile, signInWithEmailAndPassword } from 'firebase/auth';
 
 
 export const AuthContext = createContext()
@@ -25,8 +25,8 @@ const UserContext = ({ children }) => {
     }
 
     // LOGIN WITH EMAIL AND PASSWORD 
-    const signInwithEmailPassword = (email, password) => {
-        return signInwithEmailPassword(auth, email, password);
+    const LogInWithEmailAndPassword = (email, password) => {
+        return signInWithEmailAndPassword(auth, email, password);
     }
 
     // REGISTER WITH EMAIL AND PASSWORD
@@ -34,11 +34,11 @@ const UserContext = ({ children }) => {
         return createUserWithEmailAndPassword(auth, email, passowrd);
     }
 
-    // SET THE USER NAME 
-    const setUserName = (userName) => {
+    // SET PROFILE PICTURE 
+
+    const setProfilePicture = (profilePictureUrl) => {
         return updateProfile(auth.currentUser, {
-            displayName: userName,
-            // photoURL:
+            photoURL: profilePictureUrl
         })
     }
 
@@ -49,20 +49,21 @@ const UserContext = ({ children }) => {
 
     // LOAD CURRENT USER 
     useEffect(() => {
+        
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
             console.log('user observing');
             setUSer(currentUser);
             setLoading(false);
-            console.log(user);
         });
 
         return () => unsubscribe();
     }, [])
 
+    console.log(user);
 
     return (
         <AuthContext.Provider value={{
-            user, setUSer, setError, googleSignIn, githubSignIn, signInwithEmailPassword, registerUser, setUserName, logOut
+            auth, user, setUSer, setError, setProfilePicture, googleSignIn, githubSignIn, LogInWithEmailAndPassword, registerUser, logOut
         }}>
             {children}
         </AuthContext.Provider>
